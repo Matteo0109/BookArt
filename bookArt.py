@@ -68,7 +68,7 @@ def book_strip_art(pages, h_book, image_path):
 app = customtkinter.CTk()
 
 def open_file():
-    file_path = fd.askopenfilename()
+    file_path = fd.askopenfilename(filetypes=[('Image Files', ['.jpeg', '.jpg', '.png', '.gif','.tiff', '.tif', '.bmp'])])
     if file_path:
         print(file_path)
         book_strip_art(int(pages_nb.get()), int(h_book_nb.get()), file_path)
