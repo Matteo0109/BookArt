@@ -5,6 +5,7 @@ import openpyxl
 from openpyxl.drawing.image import Image
 import customtkinter
 from tkinter import filedialog as fd
+from tkinter.filedialog import asksaveasfile
 
 #Let's create a function that will take as argument the number of pages of the book and the image that we want to use
 def book_strip_art(pages, h_book, image_path):
@@ -56,12 +57,16 @@ def book_strip_art(pages, h_book, image_path):
     sheet.add_image(img,'A2')
 
     #Let's save the excel document
-    wb.save('book_strip_art.xlsx')
+    file_path=fd.asksaveasfilename( title="Select ",defaultextension=".*", filetypes=[('Excel File', ['.xlsx'])])
+    print(file_path)
+    if file_path:
+        wb.save(file_path)
 
 #Let's call the function
 #book_strip_art(286, 9, '/Users/admin/Downloads/IMG_3658.jpeg')
 
 app = customtkinter.CTk()
+
 def open_file():
     file_path = fd.askopenfilename()
     if file_path:
