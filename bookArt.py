@@ -50,7 +50,7 @@ def book_strip_art(pages, h_book, image_path):
     img = Image(image_path)
 
     #pixels = cms * dpi / 2.54
-    img.height = h_book * 96
+    img.height =int(h_book * 96 / 2.54)
     img.width = (pages/4) * 96 
     sheet.add_image(img,'A2')
 
