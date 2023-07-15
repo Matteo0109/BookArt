@@ -50,15 +50,12 @@ def book_strip_art(pages, h_book, image_path):
     img = Image(image_path)
 
     #pixels = cms * dpi / 2.54
-    print(h_book)
     img.height = h_book * 96
-    print(img.height)
     img.width = (pages/4) * 96 
     sheet.add_image(img,'A2')
 
     #Let's save the excel document
     file_path=fd.asksaveasfilename( title="Select ",defaultextension=".*", filetypes=[('Excel File', ['.xlsx'])])
-    print(file_path)
     if file_path:
         wb.save(file_path)
 
@@ -68,10 +65,18 @@ def book_strip_art(pages, h_book, image_path):
 app = customtkinter.CTk()
 
 def open_file():
+    global h_book_nb
     file_path = fd.askopenfilename(filetypes=[('Image Files', ['.jpeg', '.jpg', '.png', '.gif','.tiff', '.tif', '.bmp'])])
     if file_path:
-        print(file_path)
-        book_strip_art(int(pages_nb.get()), int(h_book_nb.get()), file_path)
+        #check if h_book_nb is a float or a string
+        x=str(h_book_nb.get())
+        print(x)
+        if ',' in str(x):
+            x.split(',')
+            x2 = x[0] + '.' + x[1]
+            book_strip_art(int(pages_nb.get()), float(x2), file_path)
+        else:
+            book_strip_art(int(pages_nb.get()), float(h_book_nb.get()), file_path)
     
 app.geometry("500x500")
 app.title("Book Strip Art")
@@ -84,7 +89,6 @@ h_book_l.pack()
 h_book_nb = customtkinter.CTkEntry(app,placeholder_text="Insérer ici la hauteur du livre")
 h_book_nb.pack()
 open_btn = customtkinter.CTkButton(app,text="Ouvrir une image",command=open_file)
-print(open_btn)
 open_btn.pack(pady=10)
 
 
