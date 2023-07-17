@@ -25,6 +25,13 @@ def book_strip_art(pages, h_book, image_path):
     wb = openpyxl.Workbook()
     #Let's create the sheet
     sheet = wb.active
+    #set page margin to default
+    sheet.page_margins.left = 0.7
+    sheet.page_margins.right = 0.7
+    sheet.page_margins.top = 0.75
+    sheet.page_margins.bottom = 0.75
+    sheet.page_margins.header = 0.3
+    sheet.page_margins.footer = 0.3
     #all column and row must be 0,5 inches
     #sheet.column_dimensions["A"].width = 5
 
@@ -44,7 +51,7 @@ def book_strip_art(pages, h_book, image_path):
         #print(row)
         for cell in row:
             if cell.value:
-                sheet.column_dimensions[cell.column_letter].width = 5
+                sheet.column_dimensions[cell.column_letter].width = 7
 
     #Print the resized image on the excel document below the page number, the image must fit the end of the column cell
     img = Image(image_path)
